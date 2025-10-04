@@ -24,12 +24,35 @@ export default function TabLayout() {
         }}
       />
       <Tabs.Screen
-        name="explore"
+        name="device"
         options={{
-          title: 'Explore',
+          title: 'Device',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="notifications"
+        options={{
+          title: 'Notifications',
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="bell.fill" color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="settings"
+        options={{
+          title: 'Settings',
           tabBarIcon: ({ color }) => <IconSymbol size={28} name="paperplane.fill" color={color} />,
         }}
       />
+      <Tabs.Screen
+        name="status"
+        options={{ href: null }}  // hides from tab bar
+      />
+      <Tabs.Screen
+        name="reminders"
+        options={{ href: null }}  // hides from tab bar
+      />
+    
     </Tabs>
   );
 }
