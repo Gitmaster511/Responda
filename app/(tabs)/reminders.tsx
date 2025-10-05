@@ -24,7 +24,9 @@ export default function RemindersPage() {
 
   return (
     <ThemedView style={styles.container}>
-      <ThemedText type="title">Set Reminders</ThemedText>
+      <ThemedText type="title" style={{ marginTop: 50 }}>
+        Set Reminders
+      </ThemedText>
 
       <View style={styles.inputRow}>
         <TextInput

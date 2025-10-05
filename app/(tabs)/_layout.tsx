@@ -27,7 +27,7 @@ export default function TabLayout() {
         name="device"
         options={{
           title: 'Device',
-          tabBarIcon: ({ color }) => <IconSymbol size={28} name="house.fill" color={color} />,
+          tabBarIcon: ({ color }) => <IconSymbol size={28} name="phone.fill" color={color} />,
         }}
       />
       <Tabs.Screen

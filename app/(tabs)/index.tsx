@@ -1,98 +1,195 @@
-import { Image } from 'expo-image';
-import { Platform, StyleSheet } from 'react-native';
+import React from "react";
+import {
+ View,
+ Text,
+ StyleSheet,
+ ScrollView,
+ Image,
+ TouchableOpacity,
+} from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import * as Animatable from "react-native-animatable";
+import { MaterialIcons } from "@expo/vector-icons";
+import { useRouter } from "expo-router";
 
-import { HelloWave } from '@/components/hello-wave';
-import ParallaxScrollView from '@/components/parallax-scroll-view';
-import { ThemedText } from '@/components/themed-text';
-import { ThemedView } from '@/components/themed-view';
-import { Link } from 'expo-router';
 
 export default function HomeScreen() {
-  return (
-    <ParallaxScrollView
-      headerBackgroundColor={{ light: '#A1CEDC', dark: '#1D3D47' }}
-      headerImage={
-        <Image
-          source={require('@/assets/images/partial-react-logo.png')}
-          style={styles.reactLogo}
-        />
-      }>
-      <ThemedView style={styles.titleContainer}>
-        <ThemedText type="title">Welcome!</ThemedText>
-        <HelloWave />
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 1: Try it</ThemedText>
-        <ThemedText>
-          Edit <ThemedText type="defaultSemiBold">app/(tabs)/index.tsx</ThemedText> to see changes.
-          Press{' '}
-          <ThemedText type="defaultSemiBold">
-            {Platform.select({
-              ios: 'cmd + d',
-              android: 'cmd + m',
-              web: 'F12',
-            })}
-          </ThemedText>{' '}
-          to open developer tools.
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <Link href="/modal">
-          <Link.Trigger>
-            <ThemedText type="subtitle">Step 2: Explore</ThemedText>
-          </Link.Trigger>
-          <Link.Preview />
-          <Link.Menu>
-            <Link.MenuAction title="Action" icon="cube" onPress={() => alert('Action pressed')} />
-            <Link.MenuAction
-              title="Share"
-              icon="square.and.arrow.up"
-              onPress={() => alert('Share pressed')}
-            />
-            <Link.Menu title="More" icon="ellipsis">
-              <Link.MenuAction
-                title="Delete"
-                icon="trash"
-                destructive
-                onPress={() => alert('Delete pressed')}
-              />
-            </Link.Menu>
-          </Link.Menu>
-        </Link>
+ const router = useRouter();
 
-        <ThemedText>
-          {`Tap the Explore tab to learn more about what's included in this starter app.`}
-        </ThemedText>
-      </ThemedView>
-      <ThemedView style={styles.stepContainer}>
-        <ThemedText type="subtitle">Step 3: Get a fresh start</ThemedText>
-        <ThemedText>
-          {`When you're ready, run `}
-          <ThemedText type="defaultSemiBold">npm run reset-project</ThemedText> to get a fresh{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> directory. This will move the current{' '}
-          <ThemedText type="defaultSemiBold">app</ThemedText> to{' '}
-          <ThemedText type="defaultSemiBold">app-example</ThemedText>.
-        </ThemedText>
-      </ThemedView>
-    </ParallaxScrollView>
-  );
+
+ return (
+   <LinearGradient
+     colors={["#4a90e2", "#6dd5fa", "#ffffff"]}
+     style={styles.background}
+   >
+     <ScrollView contentContainerStyle={styles.scrollContainer}>
+       {/* Hero Section */}
+       <Animatable.View
+         animation="fadeInDown"
+         duration={1000}
+         style={styles.heroContainer}
+       >
+         <Image
+           source={{
+             uri: "https://cdn-icons-png.flaticon.com/512/3106/3106921.png",
+           }}
+           style={styles.heroImage}
+         />
+         <Text style={styles.title}>Responda</Text>
+         <Text style={styles.subtitle}>
+           Safety. Connection. Peace of Mind.
+         </Text>
+       </Animatable.View>
+
+
+       {/* Quick Access Cards */}
+       <Animatable.View
+         animation="fadeInUp"
+         delay={300}
+         style={styles.cardContainer}
+       >
+         <TouchableOpacity
+           style={styles.card}
+           onPress={() => router.push("/device")}
+         >
+           <MaterialIcons name="sensors" size={32} color="#4a90e2" />
+           <Text style={styles.cardText}>Device Status</Text>
+         </TouchableOpacity>
+
+
+         <TouchableOpacity
+           style={styles.card}
+           onPress={() => router.push("/notifications")}
+         >
+           <MaterialIcons name="notifications-active" size={32} color="#4a90e2" />
+           <Text style={styles.cardText}>Fall Alerts</Text>
+         </TouchableOpacity>
+
+
+         <TouchableOpacity
+           style={styles.card}
+           onPress={() => router.push("/reminders")}
+         >
+           <MaterialIcons name="schedule" size={32} color="#4a90e2" />
+           <Text style={styles.cardText}>Set Reminders</Text>
+         </TouchableOpacity>
+       </Animatable.View>
+
+
+       {/* Info Section */}
+       <Animatable.View
+         animation="fadeInUp"
+         delay={600}
+         style={styles.infoContainer}
+       >
+         <Text style={styles.infoTitle}>Stay Connected</Text>
+         <Text style={styles.infoText}>
+           Responda monitors real-time activity and sends instant alerts if
+           unusual movement or a fall is detected.
+         </Text>
+         <Text style={styles.infoText}>
+           You can also check live status, set reminders, and review event
+           history right from your phone.
+         </Text>
+       </Animatable.View>
+
+
+       {/* Footer */}
+       <View style={styles.footer}>
+        
+       </View>
+     </ScrollView>
+   </LinearGradient>
+ );
 }
 
+
 const styles = StyleSheet.create({
-  titleContainer: {
-    flexDirection: 'row',
-    alignItems: 'center',
-    gap: 8,
-  },
-  stepContainer: {
-    gap: 8,
-    marginBottom: 8,
-  },
-  reactLogo: {
-    height: 178,
-    width: 290,
-    bottom: 0,
-    left: 0,
-    position: 'absolute',
-  },
+ background: {
+   flex: 1,
+ },
+ scrollContainer: {
+   paddingVertical: 30,
+   paddingHorizontal: 20,
+ },
+ heroContainer: {
+   alignItems: "center",
+   marginBottom: 20,
+   marginTop: 25,
+ },
+ heroImage: {
+   width: 120,
+   height: 120,
+   marginBottom: 15,
+ },
+ title: {
+   fontSize: 30,
+   fontWeight: "bold",
+   color: "#fff",
+ },
+ subtitle: {
+   fontSize: 16,
+   color: "#eaf4ff",
+   textAlign: "center",
+ },
+ cardContainer: {
+   flexDirection: "row",
+   flexWrap: "wrap",
+   justifyContent: "space-between",
+   marginTop: 10,
+ },
+ card: {
+   width: "47%",
+   backgroundColor: "#fff",
+   borderRadius: 12,
+   paddingVertical: 20,
+   paddingHorizontal: 10,
+   alignItems: "center",
+   marginVertical: 10,
+   shadowColor: "#000",
+   shadowOpacity: 0.15,
+   shadowRadius: 8,
+   shadowOffset: { width: 0, height: 4 },
+   elevation: 4,
+ },
+ cardText: {
+   marginTop: 8,
+   fontSize: 15,
+   fontWeight: "600",
+   color: "#333",
+ },
+ infoContainer: {
+   marginTop: 20,
+   backgroundColor: "#f9fbff",
+   borderRadius: 16,
+   padding: 20,
+   shadowColor: "#000",
+   shadowOpacity: 0.1,
+   shadowOffset: { width: 0, height: 2 },
+   shadowRadius: 6,
+ },
+ infoTitle: {
+   fontSize: 20,
+   fontWeight: "700",
+   color: "#4a90e2",
+   marginBottom: 8,
+ },
+ infoText: {
+   fontSize: 15,
+   color: "#333",
+   marginBottom: 8,
+   lineHeight: 22,
+ },
+ footer: {
+   alignItems: "center",
+   marginTop: 30,
+   marginBottom: 10,
+ },
+ footerText: {
+   fontSize: 13,
+   color: "#777",
+ },
 });
+
+
+
